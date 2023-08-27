@@ -1,0 +1,20 @@
+{
+  "name": "jaguar",
+  "version": "0.0.1",
+  "description": "",
+  "main": "jaguar.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConorOBrien-Foxx/Jaguar.git"
+  },
+  "author": "Conor O'Brien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ConorOBrien-Foxx/Jaguar/issues"
+  },
+  "homepage": "https://github.com/ConorOBrien-Foxx/Jaguar#readme"
+}
