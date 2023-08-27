@@ -1,0 +1,5 @@
+(1-)  <=>  { 1 - #1 }
+(op) <=> { #1 op #2 }
+(noun op) <=> { noun op #1 }
+(op noun) <=> { #1 op noun } 
+

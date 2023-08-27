@@ -25,7 +25,7 @@ const testFunction = (title, fn, cases) => {
     else {
         console.error(`${passingCount}/${cases.length} test cases passed for ${title}, failed ${cases.length - passingCount} test cases`);
     }
-    console.log("-".repeat(30));
+    console.log("-".repeat(60));
 };
 
 testFunction("deepEquals", deepEquals, [
