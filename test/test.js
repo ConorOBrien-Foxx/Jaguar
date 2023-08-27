@@ -107,6 +107,21 @@ testFunction("findLinearStats", funcs.findLinearStats, [
     },
 ]);
 
+testFunction("range1", funcs.range1, [
+    { inputs: [], expected: [] },
+    { inputs: [0], expected: [] },
+    { inputs: [5], expected: [0, 1, 2, 3, 4] },
+    { inputs: [10], expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+    { inputs: [-3], expected: [2, 1, 0] },
+]);
+
+testFunction("range2", funcs.range2, [
+    { inputs: [0, 0], expected: [] },
+    { inputs: [2, 5], expected: [2, 3, 4] },
+    { inputs: [-3, 2], expected: [-3, -2, -1, 0, 1] },
+    { inputs: [5, 2], expected: [5, 4, 3] },
+]);
+
 testFunction("factorial", funcs.factorial, [
     { inputs: [ 0n ], expected: 1n, options: { discardBig: false } },
     { inputs: [ 1n ], expected: 1n, options: { discardBig: false } },
@@ -138,4 +153,10 @@ testFunction("anagramIndex", funcs.anagramIndex, [
     { inputs: [ [ 1n, 2n, 0n, 3n ] ], expected: 8n },
     { inputs: [ [ 5n, 4n, 3n, 2n, 1n, 0n ] ], expected: 719n },
     { inputs: [ [ 5, 4, 3, 2, 1, 0 ] ], expected: 719 },
+]);
+
+testFunction("permuteByAnagramIndex", funcs.permuteByAnagramIndex, [
+    { inputs: [ 0n, [ 3n, 4n, 5n ] ], expected: [ 3n, 4n, 5n ] },
+    { inputs: [ 1n, [ 3n, 4n, 5n ] ], expected: [ 3n, 5n, 4n ] },
+    { inputs: [ 5040n, [..."ABCDEFGH"] ], expected: [..."BACDEFGH"] },
 ]);

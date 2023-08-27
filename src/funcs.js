@@ -1,5 +1,11 @@
 export const isNumeric = x =>
     typeof x === "number" || typeof x === "bigint";
+    
+export const matchBigIntTo = (base, reference) =>
+    typeof reference === "bigint" ? BigInt(base) : Number(base);
+    
+export const floor = x =>
+    typeof x === "bigint" ? x : Math.floor(x);
 
 export const deepEquals = (left, right, options = {}) => {
     options.discardBig ??= true;
@@ -82,7 +88,7 @@ export const factorial = n =>
         // we mutate --n because we don't want to use the same trick to calculate n-1
         : n * factorial(--n);
 
-export const anagramIndex = (list) => {
+export const anagramIndex = list => {
     if(list.length === 0) {
         return 0n;
     }
@@ -111,6 +117,8 @@ export const anagramIndex = (list) => {
     }
     
     let index = zero;
+    // TODO: can we iteratively calculate factorial by walking backwards in the for loop?
+    let product = factorial(max);
     for(let i = zero; i <= max; i++) {
         let earlierPermutationCount = zero;
         for(let j = i + one; j <= max; j++) {
@@ -118,8 +126,44 @@ export const anagramIndex = (list) => {
                 earlierPermutationCount++;
             }
         }
-        index += earlierPermutationCount * factorial(max - i);
+        // index += earlierPermutationCount * factorial(max - i);
+        index += earlierPermutationCount * product;
+        if(max - i) {
+            product /= max - i;
+        }
     }
     
     return index;
+};
+
+export const range1 = max =>
+    max >= 0
+        ? Array.from({ length: max }, (_, i) => i)
+        : Array.from({ length: -max }, (_, i) => -1 - i - max);
+    
+export const range2 = (min, max) =>
+    min <= max
+        ? Array.from({ length: max - min }, (_, i) => i + min)
+        : Array.from({ length: min - max }, (_, i) => min - i);
+
+export const permuteByAnagramIndex = (index, list) => {
+    let remainingNumbers = Array.from({ length: list.length }, (_, i) => i);
+    let permutation = [];
+    
+    let i = matchBigIntTo(list.length - 1, index);
+    let factor = factorial(i);
+    for(; i >= 0; i--) {
+        let indexInRemaining = Math.floor(Number(index / factor));
+        let targetIndex = remainingNumbers[indexInRemaining];
+        
+        permutation.push(list[targetIndex]);
+        remainingNumbers.splice(indexInRemaining, 1);
+        
+        index %= factor;
+        if(i) {
+            factor /= i;
+        }
+    }
+
+    return permutation;
 };
